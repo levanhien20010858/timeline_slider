@@ -82,8 +82,6 @@ class _TimelineSliderState extends State<TimelineSlider> {
   late ScrollController _scrollController;
   late int _selectedIndex;
   final GlobalKey _listKey = GlobalKey();
-  bool _isJumpingToSelected = false;
-
   @override
   void initState() {
     super.initState();
@@ -120,7 +118,6 @@ class _TimelineSliderState extends State<TimelineSlider> {
         center +
         widget.itemWidth / 2;
 
-    _isJumpingToSelected = true;
     _scrollController.animateTo(
       targetOffset.clamp(0.0, _scrollController.position.maxScrollExtent),
       duration: Duration(milliseconds: 1),

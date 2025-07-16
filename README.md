@@ -66,7 +66,7 @@ TimelineSlider(
 
 ## Demo
 
-![Timeline Slider Demo](assets/image.png)
+![Demo UI](https://github.com/levanhien20010858/timeline_slider/blob/main/assets/image.png)
 
 ---
 
