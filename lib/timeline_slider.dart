@@ -120,7 +120,7 @@ class _TimelineSliderState extends State<TimelineSlider> {
 
     _scrollController.animateTo(
       targetOffset.clamp(0.0, _scrollController.position.maxScrollExtent),
-      duration: Duration(milliseconds: 1),
+      duration: const Duration(milliseconds: 1),
       curve: Curves.linear,
     );
   }
@@ -147,7 +147,7 @@ class _TimelineSliderState extends State<TimelineSlider> {
           0,
           widget.timePoints.length - 1,
         );
-
+    //  callback nếu index khác _selectedIndex hoặc selectedTime từ cha khác timePoints[index]
     if (_selectedIndex != index ||
         widget.selectedTime != widget.timePoints[index]) {
       setState(() {
@@ -227,42 +227,55 @@ class _TimelineSliderState extends State<TimelineSlider> {
                         return true;
                       },
                       child: ListView.builder(
-                        key: _listKey,
-                        physics: SnappingScrollPhysics(
-                          itemDimension: widget.itemWidth,
-                        ),
-                        controller: _scrollController,
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.symmetric(horizontal: sidePadding),
-                        itemCount: widget.timePoints.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            width: widget.itemWidth,
-                            alignment: Alignment.center,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 14),
-                                  child: Text(
-                                    widget.timePoints[index],
-                                    style: TextStyle(
-                                      fontSize: widget.timeTextSize,
-                                      color: widget.timeTextColor,
-                                      fontWeight: FontWeight.normal,
+                          key: _listKey,
+                          physics: SnappingScrollPhysics(
+                            itemDimension: widget.itemWidth,
+                          ),
+                          controller: _scrollController,
+                          scrollDirection: Axis.horizontal,
+                          padding:
+                              EdgeInsets.symmetric(horizontal: sidePadding),
+                          itemCount: widget.timePoints.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                if (_selectedIndex != index) {
+                                  setState(() {
+                                    _selectedIndex = index;
+                                  });
+                                  widget
+                                      .onTimeChanged(widget.timePoints[index]);
+                                  _scrollToSelected();
+                                }
+                              },
+                              child: Container(
+                                width: widget.itemWidth,
+                                alignment: Alignment.center,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 14),
+                                      child: Text(
+                                        widget.timePoints[index],
+                                        style: TextStyle(
+                                          fontSize: widget.timeTextSize,
+                                          color: widget.timeTextColor,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    Container(
+                                      width: widget.verticalBarWidth,
+                                      height: widget.verticalBarHeight,
+                                      color: widget.verticalBarColor,
+                                    ),
+                                  ],
                                 ),
-                                Container(
-                                  width: widget.verticalBarWidth,
-                                  height: widget.verticalBarHeight,
-                                  color: widget.verticalBarColor,
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                              ),
+                            );
+                          }),
                     ),
                     Positioned(
                       bottom: 8,
