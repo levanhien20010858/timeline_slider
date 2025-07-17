@@ -271,6 +271,12 @@ class _TimelineSliderState extends State<TimelineSlider> {
                                       height: widget.verticalBarHeight,
                                       color: widget.verticalBarColor,
                                     ),
+                                    SizedBox(height: 5),
+                                    Container(
+                                      width: 2,
+                                      height: 2,
+                                      color: widget.verticalBarColor,
+                                    ),
                                   ],
                                 ),
                               ),

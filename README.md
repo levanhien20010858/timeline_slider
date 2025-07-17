@@ -22,7 +22,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  timeline_slider: ^0.0.1
+  timeline_slider: ^0.0.6
 ```
 
 Then run `flutter pub get`.
