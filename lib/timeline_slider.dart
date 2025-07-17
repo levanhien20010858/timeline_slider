@@ -162,6 +162,7 @@ class _TimelineSliderState extends State<TimelineSlider> {
   @override
   Widget build(BuildContext context) {
     final time = widget.timePoints[_selectedIndex];
+    final nowTime = _getCurrentTimeFormatted();
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -272,11 +273,13 @@ class _TimelineSliderState extends State<TimelineSlider> {
                                       color: widget.verticalBarColor,
                                     ),
                                     SizedBox(height: 5),
-                                    Container(
-                                      width: 2,
-                                      height: 2,
-                                      color: widget.verticalBarColor,
-                                    ),
+                                    widget.timePoints[index] == nowTime
+                                        ? Container(
+                                            width: 2,
+                                            height: 2,
+                                            color: widget.verticalBarColor,
+                                          )
+                                        : SizedBox(),
                                   ],
                                 ),
                               ),
@@ -306,5 +309,10 @@ class _TimelineSliderState extends State<TimelineSlider> {
         ],
       ),
     );
+  }
+
+  String _getCurrentTimeFormatted() {
+    final now = DateTime.now();
+    return '${now.hour.toString().padLeft(2, '0')}:00';
   }
 }
